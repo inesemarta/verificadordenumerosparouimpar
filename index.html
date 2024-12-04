@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Número Par ou Ímpar</title>
+    <style>
+        /* Estilo básico para o layout */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.5s;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+            width: 150px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Estilo para quando o fundo for azul */
+        body.blue {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        /* Estilo para quando o fundo for laranja */
+        body.orange {
+            background-color: #FF5722;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Verificador de Par ou Ímpar</h1>
+        <form id="numberForm">
+            <label for="numberInput">Insira um número:</label>
+            <input type="text" id="numberInput" name="numberInput" required>
+            <button type="submit">Verificar</button>
+        </form>
+        <p id="resultMessage"></p>
+    </div>
+
+    <script>
+        // Função para validar o input e verificar se é número
+        function isValidNumber(input) {
+            return !isNaN(input) && Number.isInteger(parseFloat(input));
+        }
+
+        // Função para processar o número e mudar o fundo
+        document.getElementById('numberForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Impede o envio do formulário
+
+            // Obtém o valor inserido no input
+            const numberInput = document.getElementById('numberInput').value;
+            const resultMessage = document.getElementById('resultMessage');
+            
+            // Valida o input
+            if (!isValidNumber(numberInput)) {
+                resultMessage.textContent = "Por favor, insira um número válido.";
+                resultMessage.style.color = 'red';
+                document.body.classList.remove('blue', 'orange');
+                return;
+            }
+
+            // Converte para inteiro
+            const number = parseInt(numberInput);
+
+            // Verifica se o número é par ou ímpar e altera o fundo
+            if (number % 2 === 0) {
+                resultMessage.textContent = `O número ${number} é par!`;
+                resultMessage.style.color = 'blue';
+                document.body.classList.remove('orange');
+                document.body.classList.add('blue');
+            } else {
+                resultMessage.textContent = `O número ${number} é ímpar!`;
+                resultMessage.style.color = 'orange';
+                document.body.classList.remove('blue');
+                document.body.classList.add('orange');
+            }
+        });
+    </script>
+</body>
+</html>
+
